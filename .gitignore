@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.py[cod]
+
+# Model weights and caches
+models/
+data/cache/
+*.safetensors
+*.bin
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Project-local docs that should not be pushed
+info.md
+

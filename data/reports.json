@@ -1,0 +1,23 @@
+[
+    {
+        "company": "Alpha Retail Group",
+        "period": "Q3 2024",
+        "revenue": "$12.4B",
+        "net_income": "$1.1B",
+        "highlights": "Revenue up 8% YoY driven by loyalty memberships; inventory days improved by 4."
+    },
+    {
+        "company": "Nova Energy",
+        "period": "Q3 2024",
+        "revenue": "$5.7B",
+        "net_income": "$620M",
+        "highlights": "Liquefied natural gas margins widened as contract repricing offset lower spot demand."
+    },
+    {
+        "company": "Zenith Bank",
+        "period": "FY 2023",
+        "revenue": "$9.8B",
+        "net_income": "$2.05B",
+        "highlights": "Loan book grew 11% with non-performing loans at 1.9%; CET1 ratio stable at 13.5%."
+    }
+]

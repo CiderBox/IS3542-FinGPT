@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FinGPT Pro Analyzer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="theme-light">
+    <header class="hero container py-5">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+            <div>
+                <p class="eyebrow mb-2">FinGPT Local Prototype</p>
+                <h1 class="display-5 fw-semibold">Turn local financial data into instant intelligence.</h1>
+                <p class="lead text-body-secondary mt-3">
+                    Ask complex questions across stocks, news, and filings. Retrieval-Augmented FinGPT assembles context
+                    and returns
+                    sentiment, summaries, and scenario predictions — all running fully offline.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container pb-5">
+        <section class="analysis-card shadow-lg rounded-4 p-4 mb-4">
+            <form id="analysis-form" class="row g-4 needs-validation" novalidate>
+                <div class="col-12 col-lg-8">
+                    <label for="query"
+                        class="form-label text-uppercase fw-semibold small text-body-secondary">Question</label>
+                    <textarea id="query" class="form-control form-control-lg" rows="6"
+                        placeholder="e.g., Compare Apple and Microsoft outlook this week." required></textarea>
+                    <div class="invalid-feedback">Please enter at least one sentence.</div>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <label class="form-label text-uppercase fw-semibold small text-body-secondary">Task</label>
+                    <div class="task-toggle btn-group w-100 mb-2" role="group" aria-label="Analysis task">
+                        <button type="button" class="btn task-toggle-pill active" data-task="summary">
+                            Insight Summary
+                        </button>
+                        <button type="button" class="btn task-toggle-pill" data-task="sentiment">
+                            Sentiment Check
+                        </button>
+                        <button type="button" class="btn task-toggle-pill" data-task="prediction">
+                            Trend Prediction
+                        </button>
+                    </div>
+                    <input type="hidden" id="task" value="summary" />
+                    <div class="mt-4 d-grid gap-3">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-3">Run Analysis</button>
+                        <button type="reset" class="btn btn-outline-secondary rounded-3">Reset</button>
+                    </div>
+                </div>
+            </form>
+            <div id="loading-indicator" class="loading-state mt-4">
+                <div class="spinner-border text-primary me-3" role="status"></div>
+                <p class="mb-0">FinGPT is synthesizing context…</p>
+            </div>
+        </section>
+
+        <section id="results" class="row g-4">
+            <div class="col-12 col-lg-8">
+                <div class="result-card rounded-4 border p-4 h-100">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="h4 fw-semibold mb-0">Response</h2>
+                        <div class="badge bg-gradient text-uppercase" id="task-pill">—</div>
+                    </div>
+                    <div class="snapshot-bar d-flex flex-wrap align-items-center gap-3 mb-3">
+                        <div class="snapshot-item">
+                            <span class="label">Task</span>
+                            <span class="value" id="snapshot-task">—</span>
+                        </div>
+                        <div class="snapshot-item">
+                            <span class="label">Context docs</span>
+                            <span class="value" id="snapshot-docs">0</span>
+                        </div>
+                        <div class="snapshot-item">
+                            <span class="label">Latency</span>
+                            <span class="value" id="snapshot-latency">—</span>
+                        </div>
+                    </div>
+                    <p id="result-text" class="result-text text-body-secondary">
+                        Submit a question to see FinGPT's answer here.
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="insights-card rounded-4 border p-4 h-100">
+                    <h3 class="h5 fw-semibold mb-3">Analysis Snapshot</h3>
+                    <div id="insights-metrics">
+                        <div class="metric-group mb-3">
+                            <div class="metric-label text-body-secondary small mb-1">Sources by type</div>
+                            <div class="metric-bars" id="insights-sources"></div>
+                        </div>
+                        <div class="metric-group">
+                            <div class="metric-label text-body-secondary small mb-1">Average relevance</div>
+                            <div class="metric-value" id="insights-score">—</div>
+                        </div>
+                    </div>
+                    <p class="text-body-secondary small mt-3" id="insights-hint">
+                        Run an analysis to see structured insight here.
+                    </p>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="sources-card rounded-4 border p-4">
+                    <h3 class="h5 fw-semibold mb-3">Context Sources</h3>
+                    <div id="sources-container" class="accordion accordion-flush">
+                        <div class="text-body-secondary small">No sources yet.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container pb-4 text-center text-body-secondary">
+        <p class="small mb-1">
+            Built on <a href="https://github.com/AI4Finance-Foundation/FinGPT" target="_blank"
+                rel="noreferrer">FinGPT</a>. Runs fully offline with local data.
+        </p>
+        <p class="small mb-0" id="data-footnote">
+            Data: <code>stocks.csv</code>, <code>news.csv</code>, <code>reports.json</code> — indexed documents:
+            <span id="data-doc-count">–</span>.
+        </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
