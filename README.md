@@ -67,6 +67,23 @@ GET http://127.0.0.1:8000/health
 ### Extending the Data
 - Add new CSV/JSON files under `data/` while keeping the expected columns, or extend the parsing logic in `backend/rag_pipeline.py`.
 - Whenever the data files change, the FAISS cache is automatically invalidated and rebuilt.
+- (Optional, synthetic data) To quickly generate a richer synthetic dataset for demonstration, you can run:
+
+  ```bash
+  python scripts/seed_data.py
+  ```
+
+  This script will append additional synthetic stocks, news, and report entries under `data/`.
+
+- (Optional, real market data) To fetch recent real-world data for a handful of large-cap names
+  (e.g., AAPL, TSLA, MSFT, AMZN, 0700.HK, 0939.HK) using public Yahoo Finance endpoints:
+
+  ```bash
+  python scripts/fetch_market_data.py
+  ```
+
+  This will overwrite `data/stocks.csv`, `data/news.csv`, and `data/reports.json` with data
+  fetched at runtime. You will need an active internet connection the first time you run it.
 
 ### Notes
 - This repository is intended for coursework / research demonstrations only and does **not** constitute investment advice.

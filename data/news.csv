@@ -1,6 +1,17 @@
 date,headline,body,sentiment
-2024-11-18,Apple expands services revenue,"Apple announced a new AI-powered financial planning feature within Apple Card, signaling deeper integration into personal finance ecosystems.",positive
-2024-11-17,Microsoft wins government cloud deal,"The Department of Treasury selected Microsoft Azure for a multi-year modernization project, citing strong compliance features.",positive
-2024-11-15,Global markets wobble amid inflation,"Persistent inflation fears triggered a midday sell-off in global equities before bargain hunters stepped in near the close.",neutral
-2024-11-14,Auto sector faces supply bottlenecks,"New supply-chain disruptions in EV battery components weighed on automakers, prompting analysts to trim Q4 projections.",negative
-
+2025-11-18,AAPL declined 0.01% on local session,"On 2025-11-18, AAPL declined by 0.01% to close at 267.44. Previous close was 267.46. The move reflects short-term shifts in market sentiment captured in the local price data.",neutral
+2025-11-19,AAPL rose 0.42% on local session,"On 2025-11-19, AAPL rose by 0.42% to close at 268.56. Previous close was 267.44. The move reflects short-term shifts in market sentiment captured in the local price data.",neutral
+2025-11-20,AAPL declined 0.86% on local session,"On 2025-11-20, AAPL declined by 0.86% to close at 266.25. Previous close was 268.56. The move reflects short-term shifts in market sentiment captured in the local price data.",negative
+2025-11-21,AAPL rose 1.97% on local session,"On 2025-11-21, AAPL rose by 1.97% to close at 271.49. Previous close was 266.25. The move reflects short-term shifts in market sentiment captured in the local price data.",positive
+2025-11-18,AMZN declined 4.43% on local session,"On 2025-11-18, AMZN declined by 4.43% to close at 222.55. Previous close was 232.87. The move reflects short-term shifts in market sentiment captured in the local price data.",negative
+2025-11-19,AMZN rose 0.06% on local session,"On 2025-11-19, AMZN rose by 0.06% to close at 222.69. Previous close was 222.55. The move reflects short-term shifts in market sentiment captured in the local price data.",neutral
+2025-11-20,AMZN declined 2.49% on local session,"On 2025-11-20, AMZN declined by 2.49% to close at 217.14. Previous close was 222.69. The move reflects short-term shifts in market sentiment captured in the local price data.",negative
+2025-11-21,AMZN rose 1.63% on local session,"On 2025-11-21, AMZN rose by 1.63% to close at 220.69. Previous close was 217.14. The move reflects short-term shifts in market sentiment captured in the local price data.",positive
+2025-11-18,MSFT declined 2.70% on local session,"On 2025-11-18, MSFT declined by 2.70% to close at 493.79. Previous close was 507.49. The move reflects short-term shifts in market sentiment captured in the local price data.",negative
+2025-11-19,MSFT declined 1.35% on local session,"On 2025-11-19, MSFT declined by 1.35% to close at 487.12. Previous close was 493.79. The move reflects short-term shifts in market sentiment captured in the local price data.",negative
+2025-11-20,MSFT declined 1.78% on local session,"On 2025-11-20, MSFT declined by 1.78% to close at 478.43. Previous close was 487.12. The move reflects short-term shifts in market sentiment captured in the local price data.",negative
+2025-11-21,MSFT declined 1.32% on local session,"On 2025-11-21, MSFT declined by 1.32% to close at 472.12. Previous close was 478.43. The move reflects short-term shifts in market sentiment captured in the local price data.",negative
+2025-11-18,TSLA declined 1.88% on local session,"On 2025-11-18, TSLA declined by 1.88% to close at 401.25. Previous close was 408.92. The move reflects short-term shifts in market sentiment captured in the local price data.",negative
+2025-11-19,TSLA rose 0.68% on local session,"On 2025-11-19, TSLA rose by 0.68% to close at 403.99. Previous close was 401.25. The move reflects short-term shifts in market sentiment captured in the local price data.",positive
+2025-11-20,TSLA declined 2.17% on local session,"On 2025-11-20, TSLA declined by 2.17% to close at 395.23. Previous close was 403.99. The move reflects short-term shifts in market sentiment captured in the local price data.",negative
+2025-11-21,TSLA declined 1.05% on local session,"On 2025-11-21, TSLA declined by 1.05% to close at 391.09. Previous close was 395.23. The move reflects short-term shifts in market sentiment captured in the local price data.",negative

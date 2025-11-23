@@ -145,9 +145,7 @@ def build_generation_config(settings: Settings) -> GenerationConfig:
 def generate_text(
     model: PeftModel, tokenizer: AutoTokenizer, prompt: str, settings: Settings
 ) -> str:
-    max_input_length = min(
-        4096, getattr(tokenizer, "model_max_length", 4096)
-    )
+    max_input_length = min(4096, getattr(tokenizer, "model_max_length", 4096))
     inputs = tokenizer(
         prompt,
         return_tensors="pt",
@@ -158,22 +156,47 @@ def generate_text(
     device = next(model.parameters()).device
     inputs = {k: v.to(device) for k, v in inputs.items()}
 
-    gen_config = build_generation_config(settings)
-    # Ensure generation config has valid special token ids for decoder-only models
-    if getattr(gen_config, "pad_token_id", None) is None:
-        gen_config.pad_token_id = getattr(model.config, "pad_token_id", None)
-    if getattr(gen_config, "eos_token_id", None) is None:
-        gen_config.eos_token_id = getattr(model.config, "eos_token_id", None)
+    # For some chat models (including Qwen), the tokenizer may append an EOS
+    # token at the end of the prompt. If we leave it there, the HF generate()
+    # loop can treat the sequence as already finished and immediately return
+    # the prompt without generating any new tokens. To avoid this, we strip a
+    # single trailing EOS token (and its mask) if present.
+    eos_id = tokenizer.eos_token_id
+    if eos_id is not None and "input_ids" in inputs:
+        input_ids = inputs["input_ids"]
+        if input_ids.shape[1] > 0 and input_ids[0, -1].item() == eos_id:
+            inputs["input_ids"] = input_ids[:, :-1]
+            if "attention_mask" in inputs:
+                inputs["attention_mask"] = inputs["attention_mask"][:, :-1]
+
+    # Ensure we always ask for a reasonable amount of new tokens even if an
+    # environment variable accidentally sets MAX_NEW_TOKENS too low.
+    max_new_tokens = max(64, int(getattr(settings, "max_new_tokens", 256)))
 
     with torch.no_grad():
-        outputs = model.generate(**inputs, generation_config=gen_config)
+        outputs = model.generate(
+            **inputs,
+            max_new_tokens=max_new_tokens,
+            temperature=settings.temperature,
+            top_p=settings.top_p,
+            do_sample=True,
+            repetition_penalty=1.05,
+            pad_token_id=getattr(model.config, "pad_token_id", tokenizer.eos_token_id),
+        )
 
     text = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    # Remove the original prompt if model echoes it
-    if prompt in text:
-        text = text.split(prompt, maxsplit=1)[-1]
 
-    cleaned = text.strip()
+    # Try to remove the original prompt if model simply echoes it.
+    # Only strip it when there is non-empty content after the prompt;
+    # otherwise keep the raw text so we never end up returning an empty string.
+    cleaned = text
+    if prompt in text:
+        candidate = text.split(prompt, maxsplit=1)[-1].strip()
+        if candidate:
+            cleaned = candidate
+
+    cleaned = cleaned.strip()
+
     # If the model starts producing a long Chinese segment, truncate before it
     chinese_block = re.search(r"[\u4e00-\u9fff]{6,}", cleaned)
     if chinese_block:

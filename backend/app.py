@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import asyncio
 import logging
-from typing import Dict, Literal
+from functools import lru_cache
+from typing import Dict, Literal, Optional
 
+import pandas as pd
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -27,33 +29,52 @@ tokenizer = None
 rag_pipeline: RAGPipeline | None = None
 
 
-TASK_TEMPLATES: Dict[str, str] = {
-    "sentiment": (
-        "You are FinGPT, a professional financial sentiment analyst. Using the retrieved context, "
-        "classify the sentiment (positive, neutral, or negative) and provide a concise justification. "
-        "Respond strictly in professional English only."
-    ),
-    "summary": (
-        "You are FinGPT, an expert financial research assistant. Summarize the key insights "
-        "from the retrieved documents, relate them to the user query, and highlight the most material points. "
-        "Respond strictly in professional English only."
-    ),
-    "prediction": (
-        "You are FinGPT, a market strategist. Identify trends or potential risks and opportunities "
-        "using the retrieved data, and outline a reasoned forward-looking view. "
-        "Respond strictly in professional English only."
-    ),
-}
-
-
 class AnalyzeRequest(BaseModel):
-    query: str = Field(..., min_length=10, max_length=2000)
-    task: Literal["sentiment", "summary", "prediction"] = "summary"
+    query: str = Field(..., min_length=2, max_length=2000)
+    # Task is now optional and largely ignored in favor of the dynamic prompt, 
+    # but kept for backward compatibility if needed.
+    task: Optional[str] = "general"
+    # New field to capture user investment profile
+    user_profile: Optional[str] = ""
 
 
 class AnalyzeResponse(BaseModel):
     result: str
     sources: list[dict]
+
+
+@lru_cache(maxsize=1)
+def _market_overview() -> list[dict]:
+    """Compute a simple market overview from the local stocks.csv file."""
+    if not settings.stocks_file.exists():
+        return []
+        
+    df = pd.read_csv(settings.stocks_file)
+    if df.empty:
+        return []
+
+    rows: list[dict] = []
+    for symbol, group in df.groupby("symbol"):
+        group = group.sort_values("date")
+        last = group.iloc[-1]
+        prev = group.iloc[-2] if len(group) > 1 else None
+
+        last_close = float(last["close"])
+        prev_close = float(prev["close"]) if prev is not None else None
+        pct_change = (
+            (last_close - prev_close) / prev_close * 100 if prev_close else None
+        )
+
+        rows.append(
+            {
+                "symbol": symbol,
+                "date": str(last["date"]),
+                "last_close": last_close,
+                "prev_close": prev_close,
+                "pct_change": pct_change,
+            }
+        )
+    return rows
 
 
 @app.on_event("startup")
@@ -79,29 +100,57 @@ async def health_check():
     }
 
 
+@app.get("/market_overview")
+async def market_overview():
+    """Return a lightweight market snapshot derived from local stocks.csv."""
+    try:
+        symbols = _market_overview()
+    except Exception as exc:
+        # Graceful degradation if file is missing or bad
+        return {"symbols": []}
+
+    return {"symbols": symbols}
+
+
 @app.post("/analyze", response_model=AnalyzeResponse)
 async def analyze(request: AnalyzeRequest):
     if model is None or tokenizer is None or rag_pipeline is None:
         raise HTTPException(status_code=503, detail="Model is still loading.")
 
-    template = TASK_TEMPLATES.get(request.task)
-    if not template:
-        raise HTTPException(status_code=400, detail="Unsupported task.")
-
+    # Retrieve context
     retrieved = rag_pipeline.retrieve(request.query, settings.retrieval_k)
-    if not retrieved:
-        raise HTTPException(status_code=404, detail="No knowledge found for query.")
-
+    
     context_blocks = []
-    for item in retrieved:
-        block = f"[{item.get('source', 'data')} - {item.get('id')}] {item.get('snippet')}"
-        context_blocks.append(block)
+    if retrieved:
+        for item in retrieved:
+            block = f"[{item.get('source', 'data')} - {item.get('id')}] {item.get('snippet')}"
+            context_blocks.append(block)
+    else:
+        # Even if no context is found, we still let the model try to answer 
+        # based on its internal knowledge or state it doesn't know.
+        context_blocks.append("No specific internal documents found.")
+        
     context = "\n\n".join(context_blocks)
 
+    # Construct a compact prompt to reduce the chance of the model simply echoing
+    # the instructions instead of generating a fresh answer.
+    system_role = (
+        "You are FinGPT, a professional financial analyst. "
+        "Always answer in concise, formal English."
+    )
+
+    profile_line = ""
+    if request.user_profile:
+        profile_line = f"User profile (goal / risk / horizon): {request.user_profile}."
+
     prompt = (
-        f"{template}\n\nContext:\n{context}\n\nUser Query: {request.query}\n"
-        "Deliver a concise, well-structured response in English only, using a professional financial tone. "
-        "Do not include any non-English text."
+        f"{system_role}\n"
+        f"{profile_line}\n\n"
+        f"Context from local database:\n{context}\n\n"
+        f"Question: {request.query}\n\n"
+        "Provide a short, well-structured answer that directly addresses the question "
+        "and, when useful, refers back to the context facts above.\n\n"
+        "Answer:"
     )
 
     loop = asyncio.get_event_loop()
@@ -110,4 +159,3 @@ async def analyze(request: AnalyzeRequest):
     )
 
     return AnalyzeResponse(result=result, sources=retrieved)
-

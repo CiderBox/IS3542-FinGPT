@@ -4,131 +4,834 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FinGPT Pro Analyzer</title>
+    <title>FinGPT Pro - Intelligent Financial Analysis</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
         rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
 </head>
 
-<body class="theme-light">
-    <header class="hero container py-5">
-        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
-            <div>
-                <p class="eyebrow mb-2">FinGPT Local Prototype</p>
-                <h1 class="display-5 fw-semibold">Turn local financial data into instant intelligence.</h1>
-                <p class="lead text-body-secondary mt-3">
-                    Ask complex questions across stocks, news, and filings. Retrieval-Augmented FinGPT assembles context
-                    and returns
-                    sentiment, summaries, and scenario predictions — all running fully offline.
+<body>
+    <!-- 1. LANDING PAGE VIEW -->
+    <div id="view-landing" class="full-screen-view active">
+        <div class="landing-hero">
+            <div class="landing-content text-center">
+                <div class="mb-4 fade-in-up" style="animation-delay: 0.1s;">
+                    <span class="badge rounded-pill bg-white text-primary px-3 py-2 fw-bold shadow-sm">
+                        ✨ New Generation Financial AI
+                    </span>
+                </div>
+                <h1 class="display-3 fw-bold text-white mb-4 fade-in-up" style="animation-delay: 0.2s;">
+                    Master the Market with<br>
+                    <span class="text-gradient-primary">FinGPT Intelligence</span>
+                </h1>
+                <p class="lead text-white-50 mb-5 mx-auto fade-in-up" style="max-width: 600px; animation-delay: 0.3s;">
+                    Local, secure, and personalized. FinGPT combines RAG technology with real-time market data to
+                    provide institutional-grade analysis tailored to your investment style.
                 </p>
+                <div class="d-flex gap-3 justify-content-center fade-in-up" style="animation-delay: 0.4s;">
+                    <button id="btn-landing-start"
+                        class="btn btn-primary btn-lg px-5 rounded-pill fw-bold shadow-lg hover-scale">
+                        Get Started
+                    </button>
+                    <button class="btn btn-outline-light btn-lg px-5 rounded-pill fw-bold hover-scale">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+            <div class="landing-bg-elements">
+                <div class="orb orb-1"></div>
+                <div class="orb orb-2"></div>
             </div>
         </div>
-    </header>
+    </div>
 
-    <main class="container pb-5">
-        <section class="analysis-card shadow-lg rounded-4 p-4 mb-4">
-            <form id="analysis-form" class="row g-4 needs-validation" novalidate>
-                <div class="col-12 col-lg-8">
-                    <label for="query"
-                        class="form-label text-uppercase fw-semibold small text-body-secondary">Question</label>
-                    <textarea id="query" class="form-control form-control-lg" rows="6"
-                        placeholder="e.g., Compare Apple and Microsoft outlook this week." required></textarea>
-                    <div class="invalid-feedback">Please enter at least one sentence.</div>
-                </div>
-                <div class="col-12 col-lg-4">
-                    <label class="form-label text-uppercase fw-semibold small text-body-secondary">Task</label>
-                    <div class="task-toggle btn-group w-100 mb-2" role="group" aria-label="Analysis task">
-                        <button type="button" class="btn task-toggle-pill active" data-task="summary">
-                            Insight Summary
-                        </button>
-                        <button type="button" class="btn task-toggle-pill" data-task="sentiment">
-                            Sentiment Check
-                        </button>
-                        <button type="button" class="btn task-toggle-pill" data-task="prediction">
-                            Trend Prediction
-                        </button>
+    <!-- 2. AUTH VIEW -->
+    <div id="view-auth" class="full-screen-view">
+        <div class="auth-container">
+            <div class="card shadow-xl border-0 rounded-4 overflow-hidden" style="max-width: 400px; width: 100%;">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <div class="auth-logo mb-3">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" class="text-primary">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                            </svg>
+                        </div>
+                        <h3 class="fw-bold text-dark">Welcome Back</h3>
+                        <p class="text-muted small">Sign in to access your professional workspace</p>
                     </div>
-                    <input type="hidden" id="task" value="summary" />
-                    <div class="mt-4 d-grid gap-3">
-                        <button type="submit" class="btn btn-primary btn-lg rounded-3">Run Analysis</button>
-                        <button type="reset" class="btn btn-outline-secondary rounded-3">Reset</button>
-                    </div>
+
+                    <form id="auth-form">
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Email Address</label>
+                            <input type="email" class="form-control form-control-lg bg-light border-0"
+                                placeholder="name@example.com" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold text-muted">Password</label>
+                            <input type="password" class="form-control form-control-lg bg-light border-0"
+                                placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 btn-lg rounded-3 fw-bold mb-3">
+                            Sign In
+                        </button>
+                        <div class="text-center">
+                            <a href="#" class="text-decoration-none small text-muted">Forgot password?</a>
+                        </div>
+                    </form>
                 </div>
-            </form>
-            <div id="loading-indicator" class="loading-state mt-4">
-                <div class="spinner-border text-primary me-3" role="status"></div>
-                <p class="mb-0">FinGPT is synthesizing context…</p>
             </div>
-        </section>
+        </div>
+    </div>
 
-        <section id="results" class="row g-4">
-            <div class="col-12 col-lg-8">
-                <div class="result-card rounded-4 border p-4 h-100">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h2 class="h4 fw-semibold mb-0">Response</h2>
-                        <div class="badge bg-gradient text-uppercase" id="task-pill">—</div>
+    <!-- 3. ONBOARDING VIEW -->
+    <div id="view-onboarding" class="full-screen-view">
+        <div class="container" style="max-width: 700px;">
+            <div class="card shadow-xl border-0 rounded-4">
+                <div class="card-body p-5">
+                    <div class="mb-5">
+                        <span class="text-uppercase text-primary fw-bold small tracking-wide">Personalization</span>
+                        <h2 class="fw-bold mt-2">Define Your Investment Profile</h2>
+                        <p class="text-muted">FinGPT uses this profile to tailor its analysis tone and risk warnings
+                            specifically for you.</p>
                     </div>
-                    <div class="snapshot-bar d-flex flex-wrap align-items-center gap-3 mb-3">
-                        <div class="snapshot-item">
-                            <span class="label">Task</span>
-                            <span class="value" id="snapshot-task">—</span>
+
+                    <form id="survey-form">
+                        <div class="mb-4">
+                            <label class="form-label fw-bold mb-3">1. What is your primary investment goal?</label>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input type="radio" class="btn-check" name="goal" id="goal1"
+                                        value="Capital Preservation" required>
+                                    <label class="btn btn-outline-light text-dark text-start w-100 p-3 border"
+                                        for="goal1">
+                                        🛡️ <strong>Preservation</strong><br><small class="text-muted">Minimize loss,
+                                            stable returns</small>
+                                    </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="radio" class="btn-check" name="goal" id="goal2" value="Growth">
+                                    <label class="btn btn-outline-light text-dark text-start w-100 p-3 border"
+                                        for="goal2">
+                                        🚀 <strong>Growth</strong><br><small class="text-muted">Maximize long-term
+                                            capital appreciation</small>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="snapshot-item">
-                            <span class="label">Context docs</span>
-                            <span class="value" id="snapshot-docs">0</span>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold mb-3">2. What is your risk tolerance?</label>
+                            <input type="range" class="form-range" min="1" max="5" step="1" id="risk-range">
+                            <div class="d-flex justify-content-between small text-muted fw-semibold">
+                                <span>Very Conservative</span>
+                                <span>Moderate</span>
+                                <span>Aggressive</span>
+                            </div>
                         </div>
-                        <div class="snapshot-item">
-                            <span class="label">Latency</span>
-                            <span class="value" id="snapshot-latency">—</span>
+                        <div class="mb-5">
+                            <label class="form-label fw-bold mb-3">3. How long do you plan to hold investments?</label>
+                            <select class="form-select form-select-lg bg-light border-0" id="horizon-select">
+                                <option value="Short Term (< 1 year)">Short Term (< 1 year)</option>
+                                <option value="Medium Term (1-5 years)" selected>Medium Term (1-5 years)</option>
+                                <option value="Long Term (5+ years)">Long Term (5+ years)</option>
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 rounded-3 fw-bold">
+                                Complete Setup →
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. MAIN APP DASHBOARD -->
+    <div id="view-app" class="app-container" style="display: none;">
+        <!-- Sidebar -->
+        <nav class="app-sidebar">
+            <div class="sidebar-header">
+                <div class="logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
+                </div>
+                <span class="logo-text">FinGPT Pro</span>
+            </div>
+            <ul class="nav-links">
+                <li class="nav-item active" data-target="section-analysis">
+                    <button class="nav-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                            </path>
+                        </svg>
+                        AI Analysis
+                    </button>
+                </li>
+                <li class="nav-item" data-target="section-trading">
+                    <button class="nav-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                        Trading Sim
+                    </button>
+                </li>
+                <li class="nav-item" data-target="section-community">
+                    <button class="nav-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                        Community
+                    </button>
+                </li>
+                <li class="nav-item" data-target="section-knowledge">
+                    <button class="nav-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                        </svg>
+                        Knowledge Base
+                    </button>
+                </li>
+                <li class="nav-item mt-auto" data-target="section-settings">
+                    <button class="nav-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path
+                                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                            </path>
+                        </svg>
+                        Settings
+                    </button>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <div class="status-dot online"></div>
+                <span>Online • <span id="user-email-display">User</span></span>
+            </div>
+        </nav>
+
+        <main class="app-main d-flex flex-column p-0">
+            <div class="ticker-tape-container">
+                <div class="ticker-wrap">
+                    <div class="ticker-move" id="ticker-content">
+                        <div class="ticker-item">Loading Market Data...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 flex-grow-1 overflow-auto" style="max-width: 1600px;">
+                <!-- SECTION: ANALYSIS -->
+                <div id="section-analysis" class="view-section active">
+                    <header class="view-header mb-4">
+                        <div>
+                            <h1 class="h3 fw-bold mb-1">Financial Intelligence</h1>
+                            <p class="text-body-secondary mb-0">Personalized analysis based on your <span
+                                    class="text-primary fw-semibold" id="profile-badge">Growth</span> profile.</p>
+                        </div>
+                    </header>
+                    <div class="row g-4">
+                        <div class="col-12 col-lg-8">
+                            <div class="chat-container card shadow-lg border-0">
+                                <div class="card-body p-0 d-flex flex-column" style="height: 650px;">
+                                    <div id="chat-scroll-area" class="flex-grow-1 p-4 overflow-auto bg-white">
+                                        <div class="chat-message bot">
+                                            <div class="avatar">AI</div>
+                                            <div class="content">
+                                                <p class="mb-0">Hello! I've calibrated my analysis to your investment
+                                                    style. What's on your mind today?</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="chat-input-area p-3 border-top bg-light">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <div class="smart-prompts-container d-flex gap-2 overflow-auto pb-1">
+                                                <button
+                                                    class="btn btn-sm btn-white border rounded-pill shadow-sm text-nowrap smart-prompt"
+                                                    data-prompt="Analyze AAPL's latest earnings report">🍎 Apple
+                                                    Earnings</button>
+                                                <button
+                                                    class="btn btn-sm btn-white border rounded-pill shadow-sm text-nowrap smart-prompt"
+                                                    data-prompt="What is the market sentiment for TSLA?">🚗 Tesla
+                                                    Sentiment</button>
+                                                <button
+                                                    class="btn btn-sm btn-white border rounded-pill shadow-sm text-nowrap smart-prompt"
+                                                    data-prompt="Give me a risk assessment for MSFT">💻 Microsoft
+                                                    Risk</button>
+                                            </div>
+                                            <button id="btn-export-chat"
+                                                class="btn btn-sm btn-outline-secondary border-0"
+                                                title="Export Analysis" style="display:none;">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2">
+                                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <form id="analysis-form">
+                                            <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                                                <textarea id="query" class="form-control border-0 bg-white py-3 ps-3"
+                                                    rows="2" placeholder="Ask a financial question..."
+                                                    required></textarea>
+                                                <button class="btn btn-primary px-4" type="submit">
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2">
+                                                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                                                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4">
+                            <div class="card shadow-sm border-0 h-100" style="max-height: 700px;">
+                                <div class="card-body d-flex flex-column">
+                                    <h6 class="text-uppercase fw-bold text-body-secondary small mb-3">Sources &
+                                        References</h6>
+                                    <div id="sources-list"
+                                        class="overflow-auto flex-grow-1 pe-1 d-flex flex-column gap-3">
+                                        <div class="text-center text-muted small py-4">Sources cited in the analysis
+                                            will appear here.</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <p id="result-text" class="result-text text-body-secondary">
-                        Submit a question to see FinGPT's answer here.
+                </div>
+
+                <!-- SECTION: TRADING SIM (REFACTORED) -->
+                <div id="section-trading" class="view-section">
+                    <header class="view-header mb-4 d-flex justify-content-between align-items-center">
+                        <div>
+                            <h1 class="h3 fw-bold mb-1">Pro Trading Desk</h1>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="status-indicator live"></div>
+                                <span class="text-body-secondary small">Market Status: <span
+                                        class="text-success fw-bold">LIVE</span></span>
+                            </div>
+                        </div>
+                        <button id="btn-ai-diagnose" class="btn btn-outline-primary rounded-pill fw-bold">🤖 AI
+                            Portfolio Diagnosis</button>
+                    </header>
+
+                    <!-- Account Stats Row -->
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <div
+                                class="stat-card bg-white p-3 rounded-4 shadow-sm border-start border-4 border-primary d-flex justify-content-between align-items-center">
+                                <div>
+                                    <p class="text-uppercase text-muted xsmall fw-bold mb-1">Total Equity</p>
+                                    <h4 class="fw-bold mb-0 font-mono" id="equity-val">$100,000.00</h4>
+                                </div>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb"
+                                    stroke-width="2">
+                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div
+                                class="stat-card bg-white p-3 rounded-4 shadow-sm border-start border-4 border-success d-flex justify-content-between align-items-center">
+                                <div>
+                                    <p class="text-uppercase text-muted xsmall fw-bold mb-1">Buying Power</p>
+                                    <h4 class="fw-bold mb-0 font-mono" id="buying-power-val">$100,000.00</h4>
+                                </div>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16a34a"
+                                    stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                    <polyline points="22 4 12 14.01 9 11.01" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div
+                                class="stat-card bg-white p-3 rounded-4 shadow-sm border-start border-4 border-info d-flex justify-content-between align-items-center">
+                                <div>
+                                    <p class="text-uppercase text-muted xsmall fw-bold mb-1">Unrealized P&L</p>
+                                    <h4 class="fw-bold mb-0 font-mono" id="pnl-val">$0.00</h4>
+                                </div>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9"
+                                    stroke-width="2">
+                                    <line x1="12" y1="1" x2="12" y2="23" />
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <!-- Left Col: Chart & Order -->
+                        <div class="col-lg-8">
+                            <!-- Chart Card -->
+                            <div class="card shadow-sm border-0 mb-4 overflow-hidden">
+                                <div
+                                    class="card-header bg-white border-bottom py-2 d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <select id="chart-symbol-select"
+                                            class="form-select form-select-sm w-auto bg-light border-0 fw-bold font-mono"></select>
+                                        <div class="d-flex align-items-baseline gap-2">
+                                            <span class="h5 mb-0 fw-bold font-mono" id="live-price-display">0.00</span>
+                                            <span class="small fw-semibold font-mono"
+                                                id="live-change-display">+0.00%</span>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <input type="radio" class="btn-check" name="chart-mode" id="chart-mode-intraday"
+                                            value="intraday" checked>
+                                        <label class="btn btn-outline-secondary font-mono fw-bold"
+                                            for="chart-mode-intraday">Live</label>
+
+                                        <input type="radio" class="btn-check" name="chart-mode" id="chart-mode-daily"
+                                            value="daily">
+                                        <label class="btn btn-outline-secondary font-mono fw-bold"
+                                            for="chart-mode-daily">Daily</label>
+                                    </div>
+                                </div>
+                                <div class="card-body p-0 position-relative"
+                                    style="height: 400px; background: #0f172a;">
+                                    <!-- Custom Canvas for Candlestick Chart -->
+                                    <canvas id="financial-chart"
+                                        style="width: 100%; height: 100%; display: block;"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Order Entry -->
+                            <div class="card shadow-sm border-0">
+                                <div class="card-body p-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h6 class="fw-bold text-uppercase small text-muted mb-0">Trade Execution</h6>
+                                        <span class="badge bg-soft-success text-success font-mono">Market Open</span>
+                                    </div>
+                                    <form id="trading-form" class="row g-3 align-items-end">
+                                        <div class="col-md-3">
+                                            <label class="form-label small fw-bold text-muted">Symbol</label>
+                                            <input type="text" id="order-symbol"
+                                                class="form-control fw-bold bg-light font-mono" readonly>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label small fw-bold text-muted">Side</label>
+                                            <div class="btn-group w-100" role="group">
+                                                <input type="radio" class="btn-check" name="order-side" id="btn-buy"
+                                                    value="buy" checked>
+                                                <label class="btn btn-outline-success fw-bold" for="btn-buy">Buy</label>
+                                                <input type="radio" class="btn-check" name="order-side" id="btn-sell"
+                                                    value="sell">
+                                                <label class="btn btn-outline-danger fw-bold"
+                                                    for="btn-sell">Sell</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label small fw-bold text-muted">Quantity</label>
+                                            <input type="number" id="order-qty" class="form-control font-mono fw-bold"
+                                                value="100" min="1">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="submit" class="btn btn-primary w-100 fw-bold py-2 shadow-sm">
+                                                Execute Order
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <div id="trade-feedback" class="mt-3 small fw-semibold font-mono text-end"
+                                        style="min-height: 20px;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Col: Order Book & Positions -->
+                        <div class="col-lg-4">
+                            <!-- Order Book (Level 2) -->
+                            <div class="card shadow-sm border-0 mb-4">
+                                <div class="card-header bg-white border-bottom py-2">
+                                    <h6 class="fw-bold mb-0 small text-uppercase">Order Book (Level 2)</h6>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm mb-0 font-mono small text-end">
+                                            <thead class="bg-light text-muted">
+                                                <tr>
+                                                    <th class="border-0 text-center">Size</th>
+                                                    <th class="border-0 text-center">Ask</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="order-book-asks" class="text-danger">
+                                                <!-- JS generated -->
+                                            </tbody>
+                                            <thead class="bg-light text-muted border-top border-bottom">
+                                                <tr>
+                                                    <th class="border-0 text-center">Size</th>
+                                                    <th class="border-0 text-center">Bid</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="order-book-bids" class="text-success">
+                                                <!-- JS generated -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Positions -->
+                            <div class="card shadow-sm border-0 h-100">
+                                <div class="card-header bg-white border-bottom py-2">
+                                    <h6 class="fw-bold mb-0 small text-uppercase">Positions</h6>
+                                </div>
+                                <div class="card-body p-0 table-responsive">
+                                    <table class="table table-hover align-middle mb-0 font-mono small"
+                                        id="portfolio-table">
+                                        <thead class="bg-light text-muted">
+                                            <tr>
+                                                <th class="ps-3 border-0">Sym</th>
+                                                <th class="border-0 text-center">Qty</th>
+                                                <th class="text-end pe-3 border-0">P&L</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="portfolio-list-body">
+                                            <!-- JS generated -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION: COMMUNITY -->
+                <div id="section-community" class="view-section">
+                    <header class="view-header mb-4">
+                        <div class="d-flex justify-content-between align-items-end">
+                            <div>
+                                <h1 class="h3 fw-bold mb-1">Community Hub</h1>
+                                <p class="text-body-secondary mb-0">Join the conversation with 12k+ other traders.</p>
+                            </div>
+                            <button class="btn btn-primary rounded-pill fw-bold px-4">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" class="me-2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                New Post
+                            </button>
+                        </div>
+                    </header>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-9">
+                            <!-- Post 1 (Clickable) -->
+                            <div class="card shadow-sm border-0 mb-4 hover-lift clickable-card" id="post-card-1">
+                                <div class="card-body p-4">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="community-avatar bg-primary text-white">TS</div>
+                                            <div>
+                                                <h6 class="fw-bold mb-0">TraderSarah <span
+                                                        class="badge bg-light text-primary ms-2">Pro</span></h6>
+                                                <small class="text-muted">2 hours ago</small>
+                                            </div>
+                                        </div>
+                                        <span
+                                            class="badge bg-soft-success text-success rounded-pill px-3">Analysis</span>
+                                    </div>
+                                    <h5 class="fw-bold mb-2">Just used the AI diagnosis on my Tech portfolio</h5>
+                                    <p class="text-muted mb-3">I was heavy on NVDA and AMD, and FinGPT suggested
+                                        balancing with some defensive healthcare stocks. The reasoning was spot on
+                                        regarding sector rotation risks...</p>
+                                    <div class="d-flex gap-4 text-muted small fw-semibold">
+                                        <span class="d-flex align-items-center gap-1"><svg width="16" height="16"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path
+                                                    d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3">
+                                                </path>
+                                            </svg> 142</span>
+                                        <span class="d-flex align-items-center gap-1"><svg width="16" height="16"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path
+                                                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                                                </path>
+                                            </svg> 34 Comments</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Post 2 -->
+                            <div class="card shadow-sm border-0 mb-4 hover-lift">
+                                <div class="card-body p-4">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="community-avatar bg-warning text-white">MK</div>
+                                            <div>
+                                                <h6 class="fw-bold mb-0">Mike_Quant</h6>
+                                                <small class="text-muted">5 hours ago</small>
+                                            </div>
+                                        </div>
+                                        <span
+                                            class="badge bg-soft-warning text-warning rounded-pill px-3">Question</span>
+                                    </div>
+                                    <h5 class="fw-bold mb-2">RAG Data Latency?</h5>
+                                    <p class="text-muted mb-3">Does anyone know how often the local vector database
+                                        updates if I'm running the fetch script on a cron job?</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION: KNOWLEDGE BASE -->
+                <div id="section-knowledge" class="view-section">
+                    <header class="view-header mb-4">
+                        <h1 class="h3 fw-bold mb-1">Knowledge Base</h1>
+                        <p class="text-body-secondary">Educational resources to improve your financial literacy.</p>
+                    </header>
+                    <div class="row g-4">
+                        <!-- Article 1 -->
+                        <div class="col-md-4">
+                            <div class="card border-0 shadow-sm h-100 hover-lift clickable-card" id="kb-card-1">
+                                <div class="card-body p-4">
+                                    <div class="mb-3 text-primary">
+                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                        </svg>
+                                    </div>
+                                    <span class="badge bg-light text-primary mb-2">Technology</span>
+                                    <h5 class="fw-bold">RAG Technology 101</h5>
+                                    <p class="text-muted small">Understand how FinGPT uses Retrieval-Augmented
+                                        Generation to ground its answers in real data.</p>
+                                    <button class="btn btn-sm btn-outline-primary rounded-pill mt-2">Read
+                                        Article</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Article 2 -->
+                        <div class="col-md-4">
+                            <div class="card border-0 shadow-sm h-100 hover-lift">
+                                <div class="card-body p-4">
+                                    <div class="mb-3 text-success">
+                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                        </svg>
+                                    </div>
+                                    <span class="badge bg-light text-success mb-2">Fundamentals</span>
+                                    <h5 class="fw-bold">Risk Management</h5>
+                                    <p class="text-muted small">Learn the fundamentals of portfolio diversification and
+                                        position sizing to protect capital.</p>
+                                    <button class="btn btn-sm btn-outline-success rounded-pill mt-2">Read
+                                        Article</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Article 3 -->
+                        <div class="col-md-4">
+                            <div class="card border-0 shadow-sm h-100 hover-lift">
+                                <div class="card-body p-4">
+                                    <div class="mb-3 text-info">
+                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                                            <path
+                                                d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <span class="badge bg-light text-info mb-2">Technical</span>
+                                    <h5 class="fw-bold">Market Indicators</h5>
+                                    <p class="text-muted small">How to interpret P/E ratios, moving averages, and volume
+                                        data to time your entries.</p>
+                                    <button class="btn btn-sm btn-outline-info rounded-pill mt-2">Read Article</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Article 4 -->
+                        <div class="col-md-4">
+                            <div class="card border-0 shadow-sm h-100 hover-lift">
+                                <div class="card-body p-4">
+                                    <div class="mb-3 text-warning">
+                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                                        </svg>
+                                    </div>
+                                    <span class="badge bg-light text-warning mb-2">Strategy</span>
+                                    <h5 class="fw-bold">Sector Rotation</h5>
+                                    <p class="text-muted small">Identify which business sectors are heating up and which
+                                        are cooling down in the current cycle.</p>
+                                    <button class="btn btn-sm btn-outline-warning rounded-pill mt-2">Read
+                                        Article</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Article 5 -->
+                        <div class="col-md-4">
+                            <div class="card border-0 shadow-sm h-100 hover-lift">
+                                <div class="card-body p-4">
+                                    <div class="mb-3 text-danger">
+                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                                        </svg>
+                                    </div>
+                                    <span class="badge bg-light text-danger mb-2">Psychology</span>
+                                    <h5 class="fw-bold">Trading Psychology</h5>
+                                    <p class="text-muted small">Mastering your emotions: How to avoid FOMO and stick to
+                                        your trading plan.</p>
+                                    <button class="btn btn-sm btn-outline-danger rounded-pill mt-2">Read
+                                        Article</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Article 6 -->
+                        <div class="col-md-4">
+                            <div class="card border-0 shadow-sm h-100 hover-lift">
+                                <div class="card-body p-4">
+                                    <div class="mb-3 text-dark">
+                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                            <line x1="3" y1="9" x2="21" y2="9"></line>
+                                            <line x1="9" y1="21" x2="9" y2="9"></line>
+                                        </svg>
+                                    </div>
+                                    <span class="badge bg-light text-dark mb-2">Analysis</span>
+                                    <h5 class="fw-bold">Reading 10-K Reports</h5>
+                                    <p class="text-muted small">A guide to extracting hidden gems and red flags from
+                                        company annual filings.</p>
+                                    <button class="btn btn-sm btn-outline-dark rounded-pill mt-2">Read Article</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION: SETTINGS -->
+                <div id="section-settings" class="view-section">
+                    <header class="view-header mb-4">
+                        <h1 class="h3 fw-bold mb-1">Settings</h1>
+                        <p class="text-body-secondary">Manage your profile and application preferences.</p>
+                    </header>
+                    <div class="card border-0 shadow-sm" style="max-width: 600px;">
+                        <div class="card-body p-4">
+                            <h6 class="fw-bold mb-3">Investment Profile</h6>
+                            <div class="p-3 bg-light rounded-3 mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-muted small">Current Goal</span>
+                                    <span class="fw-bold text-dark" id="setting-goal-display">Growth</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-muted small">Risk Tolerance</span>
+                                    <span class="fw-bold text-dark" id="setting-risk-display">Moderate</span>
+                                </div>
+                            </div>
+                            <button id="btn-reset-profile" class="btn btn-outline-danger btn-sm">Reset Profile &
+                                Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODALS -->
+    <div class="modal fade" id="modal-post-detail" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content rounded-4 border-0 shadow-lg">
+                <div class="modal-header border-bottom-0 pb-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-4 pb-4 pt-0">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="community-avatar bg-primary text-white"
+                            style="width:48px;height:48px;font-size:1.2rem;">TS</div>
+                        <div>
+                            <h5 class="fw-bold mb-0">TraderSarah <span
+                                    class="badge bg-light text-primary ms-1">Pro</span></h5>
+                            <small class="text-muted">2 hours ago</small>
+                        </div>
+                    </div>
+                    <h4 class="fw-bold mb-3">Just used the AI diagnosis on my Tech portfolio</h4>
+                    <p class="text-muted lh-lg mb-4">I was heavy on NVDA and AMD, and FinGPT suggested balancing with
+                        some defensive healthcare stocks. The reasoning was spot on regarding sector rotation risks...
                     </p>
-                </div>
-            </div>
-            <div class="col-12 col-lg-4">
-                <div class="insights-card rounded-4 border p-4 h-100">
-                    <h3 class="h5 fw-semibold mb-3">Analysis Snapshot</h3>
-                    <div id="insights-metrics">
-                        <div class="metric-group mb-3">
-                            <div class="metric-label text-body-secondary small mb-1">Sources by type</div>
-                            <div class="metric-bars" id="insights-sources"></div>
+                    <hr class="my-4 text-muted opacity-25">
+                    <h6 class="fw-bold mb-3">Comments (34)</h6>
+                    <div class="d-flex gap-3 mb-3">
+                        <div class="community-avatar bg-secondary text-white small" style="width:32px;height:32px;">J
                         </div>
-                        <div class="metric-group">
-                            <div class="metric-label text-body-secondary small mb-1">Average relevance</div>
-                            <div class="metric-value" id="insights-score">—</div>
+                        <div class="bg-light p-3 rounded-3 flex-grow-1">
+                            <div class="d-flex justify-content-between"><span class="fw-bold small">JohnDoe</span><small
+                                    class="text-muted">1 hr ago</small></div>
+                            <p class="small mb-0 mt-1">Totally agree. I used it for my energy stocks and it saved me
+                                from the recent drawdown.</p>
                         </div>
                     </div>
-                    <p class="text-body-secondary small mt-3" id="insights-hint">
-                        Run an analysis to see structured insight here.
-                    </p>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="sources-card rounded-4 border p-4">
-                    <h3 class="h5 fw-semibold mb-3">Context Sources</h3>
-                    <div id="sources-container" class="accordion accordion-flush">
-                        <div class="text-body-secondary small">No sources yet.</div>
+                    <div class="d-flex gap-3 align-items-start mt-4">
+                        <div class="community-avatar bg-dark text-white small" style="width:32px;height:32px;">ME</div>
+                        <div class="flex-grow-1">
+                            <textarea id="post-comment-input" class="form-control bg-light border-0" rows="2"
+                                placeholder="Write a comment..."></textarea>
+                            <button id="btn-post-comment"
+                                class="btn btn-primary btn-sm rounded-pill mt-2 px-3 fw-bold">Post Comment</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </div>
 
-    <footer class="container pb-4 text-center text-body-secondary">
-        <p class="small mb-1">
-            Built on <a href="https://github.com/AI4Finance-Foundation/FinGPT" target="_blank"
-                rel="noreferrer">FinGPT</a>. Runs fully offline with local data.
-        </p>
-        <p class="small mb-0" id="data-footnote">
-            Data: <code>stocks.csv</code>, <code>news.csv</code>, <code>reports.json</code> — indexed documents:
-            <span id="data-doc-count">–</span>.
-        </p>
-    </footer>
+    <div class="modal fade" id="modal-article-detail" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
+            <div class="modal-content rounded-4 border-0 shadow-lg">
+                <div class="modal-header border-0">
+                    <span class="badge bg-light text-primary">Technology</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-5 pb-5 pt-2">
+                    <h2 class="fw-bold mb-4 display-6">RAG Technology 101: Grounding AI in Reality</h2>
+                    <div class="d-flex align-items-center gap-2 mb-4 text-muted small"><span>By FinGPT Research</span> •
+                        <span>5 min read</span>
+                    </div>
+                    <div class="article-content text-secondary lh-lg">
+                        <p class="lead text-dark fw-medium">Retrieval-Augmented Generation (RAG) is the architecture
+                            that prevents FinGPT from hallucinating financial data.</p>
+                        <h5 class="fw-bold text-dark mt-4">How It Works</h5>
+                        <p>Unlike standard LLMs that rely solely on training data, RAG systems first query a live
+                            database before answering.</p>
+                        <div class="p-4 bg-light rounded-3 my-4 border-start border-4 border-primary"><strong>The 3-Step
+                                Process:</strong>
+                            <ol class="mb-0 mt-2">
+                                <li><strong>Retrieve:</strong> Search the local vector database...</li>
+                                <li><strong>Augment:</strong> Inject context into the prompt...</li>
+                                <li><strong>Generate:</strong> Synthesize an answer based on facts.</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="mt-5 pt-4 border-top"><button class="btn btn-outline-primary rounded-pill px-4"
+                            data-bs-dismiss="modal">Close Article</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>

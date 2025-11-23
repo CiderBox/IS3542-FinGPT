@@ -19,5 +19,89 @@
         "revenue": "$9.8B",
         "net_income": "$2.05B",
         "highlights": "Loan book grew 11% with non-performing loans at 1.9%; CET1 ratio stable at 13.5%."
+    },
+    {
+        "company": "Orion Semiconductor",
+        "period": "Q3 2024",
+        "revenue": "$7.2B",
+        "net_income": "$1.35B",
+        "highlights": "Datacenter GPU shipments doubled YoY; gross margin expanded 220 bps on richer product mix."
+    },
+    {
+        "company": "Pacific Shipping Lines",
+        "period": "Q3 2024",
+        "revenue": "$3.1B",
+        "net_income": "$240M",
+        "highlights": "Container volumes fell 5% but long-term contracts cushioned spot rate volatility; leverage reduced to 1.8x EBITDA."
+    },
+    {
+        "company": "Helios Healthcare",
+        "period": "FY 2023",
+        "revenue": "$18.6B",
+        "net_income": "$2.3B",
+        "highlights": "Diagnostics and specialty care segments drove margin expansion; free cash flow covered 120% of dividends."
+    },
+    {
+        "company": "Atlas Industrials",
+        "period": "FY 2023",
+        "revenue": "$22.1B",
+        "net_income": "$1.9B",
+        "highlights": "Backlog reached a record high; pricing actions offset input cost inflation and preserved margins."
+    },
+    {
+        "company": "Vertex Software",
+        "period": "Q3 2024",
+        "revenue": "$2.4B",
+        "net_income": "$410M",
+        "highlights": "Cloud ARR grew 32% YoY; net dollar retention remained above 120% despite slower seat expansion."
+    },
+    {
+        "company": "Harbor Real Estate Trust",
+        "period": "Q3 2024",
+        "revenue": "$980M",
+        "net_income": "$210M",
+        "highlights": "Occupancy in logistics assets rose to 97%; office exposure reduced to 18% of portfolio NOI."
+    },
+    {
+        "company": "Atlas Industrials",
+        "period": "FY 2023",
+        "revenue": "$22.1B",
+        "net_income": "$1.9B",
+        "highlights": "Backlog reached a record high; pricing actions offset input cost inflation and preserved margins."
+    },
+    {
+        "company": "Vertex Software",
+        "period": "Q3 2024",
+        "revenue": "$2.4B",
+        "net_income": "$410M",
+        "highlights": "Cloud ARR grew 32% YoY; net dollar retention remained above 120% despite slower seat expansion."
+    },
+    {
+        "company": "Harbor Real Estate Trust",
+        "period": "Q3 2024",
+        "revenue": "$980M",
+        "net_income": "$210M",
+        "highlights": "Occupancy in logistics assets rose to 97%; office exposure reduced to 18% of portfolio NOI."
+    },
+    {
+        "company": "Atlas Industrials",
+        "period": "FY 2023",
+        "revenue": "$22.1B",
+        "net_income": "$1.9B",
+        "highlights": "Backlog reached a record high; pricing actions offset input cost inflation and preserved margins."
+    },
+    {
+        "company": "Vertex Software",
+        "period": "Q3 2024",
+        "revenue": "$2.4B",
+        "net_income": "$410M",
+        "highlights": "Cloud ARR grew 32% YoY; net dollar retention remained above 120% despite slower seat expansion."
+    },
+    {
+        "company": "Harbor Real Estate Trust",
+        "period": "Q3 2024",
+        "revenue": "$980M",
+        "net_income": "$210M",
+        "highlights": "Occupancy in logistics assets rose to 97%; office exposure reduced to 18% of portfolio NOI."
     }
 ]
