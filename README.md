@@ -20,49 +20,49 @@ info.md         # assignment / project specification (do not remove)
 ```
 
 ### Environment Setup
-1. **Python**
-   - Use Python 3.10+.
 
-2. **Create and activate virtual environment (PowerShell example)**
-   ```bash
+#### Windows (PowerShell)
+1. **Create and activate virtual environment:**
+   ```powershell
    Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
    python -m venv .venv
    .\.venv\Scripts\Activate.ps1
+   ```
+2. **Install dependencies:**
+   ```powershell
    pip install -r requirements.txt
    ```
-
-3. **Model configuration**
-   - By default the backend will use the `remote_model_id` defined in `backend/config.py` (e.g. `Qwen/Qwen1.5-1.8B-Chat`).
-   - You can override the model via environment variables:
-     - `BASE_MODEL_ID` (takes highest priority)
-     - `REMOTE_MODEL_ID`
-   - LoRA adapters are disabled by default. To enable one, set:
-     - `LORA_ADAPTER_ID="your/hf-repo-id"`
-
-### Running the Backend
-From the project root:
-
-   ```bash
-   uvicorn backend.app:app --host 0.0.0.0 --port 8000
+3. **Start Backend:**
+   ```powershell
+   .\start-backend.ps1
    ```
 
-On first run the backend will:
-- Download/load the base model (and LoRA adapter if `LORA_ADAPTER_ID` is set and accessible).
-- Read the files under `data/` and build a FAISS index, caching it under `data/cache/`.
+#### Mac / Linux (Bash)
+1. **Run the auto-setup script:**
+   ```bash
+   chmod +x start-backend.sh
+   ./start-backend.sh
+   ```
+   
+   *Note for Mac Users (Apple Silicon):*
+   - The script automatically detects `mps` (Metal Performance Shaders) support.
+   - It will disable 4-bit/8-bit quantization (which relies on CUDA-only libraries) and run the model in `float16` mode for optimal performance on M1/M2/M3 chips.
+   - Ensure you have Xcode command line tools installed.
 
-You can inspect the backend status at:
-
-```text
-GET http://127.0.0.1:8000/health
-```
+### Model Configuration
+- By default the backend will use the `remote_model_id` defined in `backend/config.py` (e.g. `Qwen/Qwen1.5-1.8B-Chat`).
+- You can override the model via environment variables in the startup scripts:
+  - `BASE_MODEL_ID` (takes highest priority)
+  - `LORA_ADAPTER_ID="your/hf-repo-id"` (optional, disabled by default)
 
 ### Using the Frontend
-1. Open `frontend/index.html` directly in a modern browser (Chrome/Edge recommended).
-2. Enter a financial question, choose a task type (Summary / Sentiment / Prediction), and click **Run Analysis**.
-3. The page will call `http://127.0.0.1:8000/analyze` and display:
-   - The model’s answer.
-   - A structured “Analysis Snapshot” panel.
-   - The retrieved context sources, grouped by data type.
+1. Open `frontend/index.html` directly in a modern browser (Chrome/Edge/Safari recommended).
+2. **Login Bypass**: For testing, click the small "Skip Login (Dev)" button at the bottom right of the login screen.
+3. **Features to try**:
+   - **AI Analysis**: Ask questions like "Analyze AAPL's latest earnings".
+   - **Trading Sim**: View real-time simulated market data and place orders.
+   - **Community Hub**: Use the "AI Enhance" button to auto-generate post content.
+   - **Knowledge Base**: Click "Ask AI ✨" on any article to instantly query that topic.
 
 ### Extending the Data
 - Add new CSV/JSON files under `data/` while keeping the expected columns, or extend the parsing logic in `backend/rag_pipeline.py`.
@@ -73,17 +73,12 @@ GET http://127.0.0.1:8000/health
   python scripts/seed_data.py
   ```
 
-  This script will append additional synthetic stocks, news, and report entries under `data/`.
-
 - (Optional, real market data) To fetch recent real-world data for a handful of large-cap names
   (e.g., AAPL, TSLA, MSFT, AMZN, 0700.HK, 0939.HK) using public Yahoo Finance endpoints:
 
   ```bash
   python scripts/fetch_market_data.py
   ```
-
-  This will overwrite `data/stocks.csv`, `data/news.csv`, and `data/reports.json` with data
-  fetched at runtime. You will need an active internet connection the first time you run it.
 
 ### Notes
 - This repository is intended for coursework / research demonstrations only and does **not** constitute investment advice.

@@ -43,6 +43,11 @@ def _resolve_model_location(settings: Settings) -> str:
 
 
 def _quantization_config(settings: Settings):
+    # Mac check: bitsandbytes typically doesn't support MPS/Apple Silicon yet.
+    # If on Mac, disable quantization to prevent crash.
+    if torch.backends.mps.is_available():
+        return None
+
     if not settings.use_quantization or not torch.cuda.is_available():
         return None
 
@@ -81,8 +86,17 @@ def load_llm(settings: Settings) -> Tuple[PeftModel, AutoTokenizer]:
     has_built_in_quant = "int4" in base_id_lower or "int8" in base_id_lower
 
     quant_config = None if has_built_in_quant else _quantization_config(settings)
-    torch_dtype = torch.bfloat16 if torch.cuda.is_available() else torch.float32
-    device_map = "auto" if torch.cuda.is_available() else {"": "cpu"}
+    
+    # Device Strategy: CUDA -> MPS -> CPU
+    if torch.cuda.is_available():
+        device_map = "auto"
+        torch_dtype = torch.bfloat16
+    elif torch.backends.mps.is_available():
+        device_map = {"": "mps"}
+        torch_dtype = torch.float16 # MPS supports float16 well
+    else:
+        device_map = {"": "cpu"}
+        torch_dtype = torch.float32
 
     model_loader = AutoModel if is_chatglm else AutoModelForCausalLM
     model_kwargs = {
@@ -107,9 +121,9 @@ def load_llm(settings: Settings) -> Tuple[PeftModel, AutoTokenizer]:
     # Attach LoRA adapter if available; otherwise, fall back to base model
     if settings.lora_adapter_id:
         try:
-    logger.info("Attaching LoRA adapter %s", settings.lora_adapter_id)
-    peft_model = PeftModel.from_pretrained(base_model, settings.lora_adapter_id)
-    peft_model.eval()
+            logger.info("Attaching LoRA adapter %s", settings.lora_adapter_id)
+            peft_model = PeftModel.from_pretrained(base_model, settings.lora_adapter_id)
+            peft_model.eval()
             model = peft_model
         except Exception as exc:
             logger.warning(
@@ -203,4 +217,3 @@ def generate_text(
         cleaned = cleaned[: chinese_block.start()].strip()
 
     return cleaned
-
