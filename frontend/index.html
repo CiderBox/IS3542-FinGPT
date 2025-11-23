@@ -19,14 +19,16 @@
     <div id="view-landing" class="full-screen-view active">
         <div class="landing-hero">
             <div class="landing-content text-center">
-                <div class="mb-4 fade-in-up" style="animation-delay: 0.1s;">
+                <div class="mb-2 fade-in-up" style="animation-delay: 0.1s;">
                     <span class="badge rounded-pill bg-white text-primary px-3 py-2 fw-bold shadow-sm">
                         ✨ New Generation Financial AI
                     </span>
                 </div>
-                <h1 class="display-3 fw-bold text-white mb-4 fade-in-up" style="animation-delay: 0.2s;">
-                    Master the Market with<br>
-                    <span class="text-gradient-primary">FinGPT Intelligence</span>
+                <div class="landing-big-logo fade-in-up" style="animation-delay: 0.15s;">
+                    FinGPT
+                </div>
+                <h1 class="display-6 fw-bold text-white mb-4 fade-in-up" style="animation-delay: 0.2s;">
+                    Master the Market with <span class="text-gradient-primary">Intelligence</span>
                 </h1>
                 <p class="lead text-white-50 mb-5 mx-auto fade-in-up" style="max-width: 600px; animation-delay: 0.3s;">
                     Local, secure, and personalized. FinGPT combines RAG technology with real-time market data to
@@ -85,6 +87,11 @@
                     </form>
                 </div>
             </div>
+            <button id="btn-skip-login"
+                class="btn btn-link text-muted text-decoration-none position-fixed bottom-0 end-0 m-4 small"
+                style="opacity: 0.5; font-size: 0.75rem;">
+                Skip Login (Dev) &rarr;
+            </button>
         </div>
     </div>
 
@@ -615,8 +622,14 @@
                                     <h5 class="fw-bold">RAG Technology 101</h5>
                                     <p class="text-muted small">Understand how FinGPT uses Retrieval-Augmented
                                         Generation to ground its answers in real data.</p>
-                                    <button class="btn btn-sm btn-outline-primary rounded-pill mt-2">Read
-                                        Article</button>
+                                    <div class="d-flex gap-2 mt-2">
+                                        <button class="btn btn-sm btn-outline-primary rounded-pill">Read
+                                            Article</button>
+                                        <button class="btn btn-sm btn-soft-primary rounded-pill fw-bold ask-ai-btn"
+                                            data-topic="Explain RAG technology in simple terms">
+                                            Ask AI ✨
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -635,8 +648,14 @@
                                     <h5 class="fw-bold">Risk Management</h5>
                                     <p class="text-muted small">Learn the fundamentals of portfolio diversification and
                                         position sizing to protect capital.</p>
-                                    <button class="btn btn-sm btn-outline-success rounded-pill mt-2">Read
-                                        Article</button>
+                                    <div class="d-flex gap-2 mt-2">
+                                        <button class="btn btn-sm btn-outline-success rounded-pill">Read
+                                            Article</button>
+                                        <button class="btn btn-sm btn-soft-success rounded-pill fw-bold ask-ai-btn"
+                                            data-topic="What are the key principles of risk management in trading?">
+                                            Ask AI ✨
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -658,7 +677,13 @@
                                     <h5 class="fw-bold">Market Indicators</h5>
                                     <p class="text-muted small">How to interpret P/E ratios, moving averages, and volume
                                         data to time your entries.</p>
-                                    <button class="btn btn-sm btn-outline-info rounded-pill mt-2">Read Article</button>
+                                    <div class="d-flex gap-2 mt-2">
+                                        <button class="btn btn-sm btn-outline-info rounded-pill">Read Article</button>
+                                        <button class="btn btn-sm btn-soft-info rounded-pill fw-bold ask-ai-btn"
+                                            data-topic="Explain how to use moving averages for trading">
+                                            Ask AI ✨
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -676,8 +701,14 @@
                                     <h5 class="fw-bold">Sector Rotation</h5>
                                     <p class="text-muted small">Identify which business sectors are heating up and which
                                         are cooling down in the current cycle.</p>
-                                    <button class="btn btn-sm btn-outline-warning rounded-pill mt-2">Read
-                                        Article</button>
+                                    <div class="d-flex gap-2 mt-2">
+                                        <button class="btn btn-sm btn-outline-warning rounded-pill">Read
+                                            Article</button>
+                                        <button class="btn btn-sm btn-soft-warning rounded-pill fw-bold ask-ai-btn"
+                                            data-topic="How does sector rotation work in the stock market?">
+                                            Ask AI ✨
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -696,8 +727,13 @@
                                     <h5 class="fw-bold">Trading Psychology</h5>
                                     <p class="text-muted small">Mastering your emotions: How to avoid FOMO and stick to
                                         your trading plan.</p>
-                                    <button class="btn btn-sm btn-outline-danger rounded-pill mt-2">Read
-                                        Article</button>
+                                    <div class="d-flex gap-2 mt-2">
+                                        <button class="btn btn-sm btn-outline-danger rounded-pill">Read Article</button>
+                                        <button class="btn btn-sm btn-soft-danger rounded-pill fw-bold ask-ai-btn"
+                                            data-topic="Tips for mastering trading psychology and avoiding FOMO">
+                                            Ask AI ✨
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -717,7 +753,13 @@
                                     <h5 class="fw-bold">Reading 10-K Reports</h5>
                                     <p class="text-muted small">A guide to extracting hidden gems and red flags from
                                         company annual filings.</p>
-                                    <button class="btn btn-sm btn-outline-dark rounded-pill mt-2">Read Article</button>
+                                    <div class="d-flex gap-2 mt-2">
+                                        <button class="btn btn-sm btn-outline-dark rounded-pill">Read Article</button>
+                                        <button class="btn btn-sm btn-soft-dark rounded-pill fw-bold ask-ai-btn"
+                                            data-topic="What are the most important sections in a 10-K report?">
+                                            Ask AI ✨
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -794,6 +836,53 @@
                                 class="btn btn-primary btn-sm rounded-pill mt-2 px-3 fw-bold">Post Comment</button>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Post Modal -->
+    <div class="modal fade" id="modal-new-post" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow-lg">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title fw-bold">Create New Post</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <form id="new-post-form">
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Category</label>
+                            <select class="form-select bg-light border-0" id="new-post-category">
+                                <option value="Analysis">Analysis</option>
+                                <option value="Question">Question</option>
+                                <option value="Discussion">Discussion</option>
+                                <option value="News">News</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Title</label>
+                            <input type="text" class="form-control bg-light border-0 fw-bold" id="new-post-title"
+                                placeholder="What's on your mind?" required>
+                        </div>
+                        <div class="mb-4 position-relative">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <label class="form-label small fw-bold text-muted mb-0">Content</label>
+                                <button type="button" id="btn-ai-enhance-post"
+                                    class="btn btn-sm btn-soft-primary rounded-pill py-0 px-3 fw-bold"
+                                    style="font-size: 0.75rem;">
+                                    ✨ AI Enhance
+                                </button>
+                            </div>
+                            <textarea class="form-control bg-light border-0" id="new-post-content" rows="4"
+                                placeholder="Share your thoughts..." required></textarea>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-light rounded-pill me-2 fw-bold"
+                                data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Post</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

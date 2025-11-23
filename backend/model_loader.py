@@ -107,9 +107,9 @@ def load_llm(settings: Settings) -> Tuple[PeftModel, AutoTokenizer]:
     # Attach LoRA adapter if available; otherwise, fall back to base model
     if settings.lora_adapter_id:
         try:
-            logger.info("Attaching LoRA adapter %s", settings.lora_adapter_id)
-            peft_model = PeftModel.from_pretrained(base_model, settings.lora_adapter_id)
-            peft_model.eval()
+    logger.info("Attaching LoRA adapter %s", settings.lora_adapter_id)
+    peft_model = PeftModel.from_pretrained(base_model, settings.lora_adapter_id)
+    peft_model.eval()
             model = peft_model
         except Exception as exc:
             logger.warning(

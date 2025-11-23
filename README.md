@@ -42,9 +42,9 @@ info.md         # assignment / project specification (do not remove)
 ### Running the Backend
 From the project root:
 
-```bash
-uvicorn backend.app:app --host 0.0.0.0 --port 8000
-```
+   ```bash
+   uvicorn backend.app:app --host 0.0.0.0 --port 8000
+   ```
 
 On first run the backend will:
 - Download/load the base model (and LoRA adapter if `LORA_ADAPTER_ID` is set and accessible).
